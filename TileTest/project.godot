@@ -1,0 +1,35 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=3
+
+[application]
+
+config/name="TileTest"
+config/icon="res://icon.png"
+
+[autoload]
+
+global="*res://global.gd"
+
+[memory]
+
+limits/packet_peer_stream/max_buffer_po2=16
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=16000
+limits/debugger_stdout/max_messages_per_frame=100
+limits/debugger_stdout/max_errors_per_frame=100
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
+quality/filters/anisotropic_filter_level=3
+quality/shadows/filter_mode=0
+environment/default_environment="res://default_env.tres"
