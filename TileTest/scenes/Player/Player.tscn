@@ -12,7 +12,6 @@ height = 6.2
 position = Vector2( 100, 100 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
-_sections_unfolded = [ "Material", "Transform" ]
 max_speed = 150
 walk_acceleration = 15
 max_fall_speed = 400

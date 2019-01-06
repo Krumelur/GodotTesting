@@ -4,17 +4,17 @@ extends KinematicBody2D
 # var a = 2
 # var b = "textvar"
 
-export var max_speed = 150
-export var walk_acceleration = 15
-export var max_fall_speed = 400
+export var max_speed : int = 150
+export var walk_acceleration : int = 15
+export var max_fall_speed : int = 400
 
 func _ready():
 	pass
 	
-var idle_timer_started = false
-var vel = Vector2(0, 0)
+var idle_timer_started : bool = false
+var vel : Vector2 = Vector2(0, 0)
 
-func _physics_process(delta):
+func _physics_process(delta : float):
 	if Input.is_action_pressed("ui_left"):
 		vel.x -= walk_acceleration
 		vel.x = clamp(vel.x, -max_speed, 0)
@@ -23,8 +23,6 @@ func _physics_process(delta):
 		vel.x = clamp(vel.x, 0, max_speed)
 	else:
 		vel.x = 0
-
-	var vec = Image.create(...)
 
 	if vel.x != 0:
 		$Sprite.flip_h = vel.x < 0
