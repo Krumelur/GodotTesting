@@ -1,26 +1,34 @@
 extends KinematicBody2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
-export var max_speed : int = 150
+export var max_speed : int = 80
 export var walk_acceleration : int = 15
 export var max_fall_speed : int = 400
+
+var jump_speed : float = 200.0
 
 func _ready():
 	pass
 	
 var idle_timer_started : bool = false
 var vel : Vector2 = Vector2(0, 0)
+var is_jumping : bool = false
+
+func _input(event : InputEvent) -> void:
+	if is_jumping:
+		return
+	if event.is_action_pressed("jump"):
+		is_jumping = true
+		vel.y = -jump_speed
 
 func _physics_process(delta : float):
 	if Input.is_action_pressed("ui_left"):
-		vel.x -= walk_acceleration
-		vel.x = clamp(vel.x, -max_speed, 0)
+		#vel.x -= walk_acceleration
+		#vel.x = clamp(vel.x, -max_speed, 0)
+		vel.x = -max_speed
 	elif Input.is_action_pressed("ui_right"):
-		vel.x += walk_acceleration
-		vel.x = clamp(vel.x, 0, max_speed)
+		#vel.x += walk_acceleration
+		#vel.x = clamp(vel.x, 0, max_speed)
+		vel.x = max_speed
 	else:
 		vel.x = 0
 
@@ -36,15 +44,19 @@ func _physics_process(delta : float):
 			$Sprite.stop()
 			$IdleTimer.start()
 
+		
+	#vel.y = clamp(vel.y, 0, max_fall_speed)
+	var remaining = move_and_slide(vel, Vector2(0, -1), true)
+	
+	if is_jumping && remaining.round().y == 0 :
+		is_jumping = false
+		vel.y = 0
+	
 	if !is_on_floor():
 		vel.y += global.GRAVITY * delta
-		
-	vel.y = clamp(vel.y, 0, max_fall_speed)
-
-	#position.x += vel.x * max_speed
-	#position.y += vel.y * max_speed
+	else:
+		is_jumping = false
 	
-	move_and_slide(vel, Vector2(0, -1), 5, 500)
 	
 
 func _idle_timer_triggered():

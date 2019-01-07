@@ -3,18 +3,13 @@
 [ext_resource path="res://scenes/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player/PlaySpriteFrames.tres" type="SpriteFrames" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=1]
 
-radius = 5.75
-height = 6.2
+extents = Vector2( 7.30887, 8.62334 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 100, 100 )
-scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
-max_speed = 150
-walk_acceleration = 15
-max_fall_speed = 400
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
