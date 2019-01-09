@@ -55,8 +55,8 @@ func _ready():
 				print("Found player at %s" % used_cell)
 				_current_level_map.set_cellv(used_cell, -1)
 				setup_player(used_cell)
-	
-func _process(delta: float) -> void:
+
+func _physics_process(delta: float) -> void:
 	if $CameraFollowNode && $Player :
 		$CameraFollowNode.position = Vector2($Player.position.x - 150, 0)
 				
