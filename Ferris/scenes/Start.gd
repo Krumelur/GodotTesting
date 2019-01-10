@@ -21,7 +21,7 @@ func _ready():
 	var resource : Resource = load("res://scenes/Levels/level_1.tscn")
 	_current_level_map = resource.instance()
 	# Scale by a factor of 4...modern hardware has so much more resolution than back in the good old days of 320x200 :-)
-	_current_level_map.scale = Vector2(1, 1)
+	#_current_level_map.scale = Vector2(1, 1)
 	add_child(_current_level_map)
 	
 	# Every level map has got a child TileMap that defines the type of the tile used at a specific location (background, wall, kill, collectable, climbable)
@@ -57,9 +57,11 @@ func _ready():
 				setup_player(used_cell)
 
 func _physics_process(delta: float) -> void:
+	_player.move($Joystick.joystick_vector)
 	if $CameraFollowNode && $Player :
 		$CameraFollowNode.position = Vector2($Player.position.x - 150, 0)
-				
+		
+						
 # Places the player at a given level position. Adds player to the scene if not in it yet.
 func setup_player(tile_position : Vector2) -> void:
 	# Pivot point of sprite is the center. Adjust by half the width and height when inserting player.
