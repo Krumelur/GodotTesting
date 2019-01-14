@@ -24,8 +24,6 @@ func _physics_process(delta):
 	else:
 		vel.x = 0
 
-	var vec = Image.create(...)
-
 	if vel.x != 0:
 		$Sprite.flip_h = vel.x < 0
 		$Sprite.animation = "walk_right"
