@@ -1,5 +1,4 @@
 extends Node2D
-
 enum TILE_TYPES {
 	Wall = 0,
 	Kill = 1,
@@ -12,11 +11,20 @@ enum SPRITE_ID {
 	Player = 247
 }
 
+	
 # Create the player.
 onready var _player : Node2D  = $Player
 var _current_level_map : TileMap
 
 func _ready():
+	# Note about the game's dimensions:
+	# The assets were designed for a resolution of 320x200 (MCGA) back in the days.
+	# Because they are just 16x16 pixels in size, we have to scale things up.
+	# The window resolution of the project is set to 320x200 but the window can be resized to any given dimensions.
+	# Setting the project settings to scale the viewport and keep aspect ratio right takes care of proper resizing.
+	# We set the initial window size to 640x480 to prevent the game window from being tiny.
+	OS.window_size = Vector2(640, 480)
+	
 	# Create an instance of the level. What we get back is a TileMap.
 	var resource : Resource = load("res://scenes/Levels/level_1.tscn")
 	_current_level_map = resource.instance()
@@ -57,7 +65,7 @@ func _ready():
 				setup_player(used_cell)
 
 func _physics_process(delta: float) -> void:
-	_player.move($Joystick.joystick_vector)
+	#_player.move($Joystick.joystick_vector)
 	if $CameraFollowNode && $Player :
 		$CameraFollowNode.position = Vector2($Player.position.x - 150, 0)
 		

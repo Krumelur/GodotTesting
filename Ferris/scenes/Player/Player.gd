@@ -19,7 +19,6 @@ var _up_pressed = false
 var _down_pressed = false
 
 func move(vec : Vector2) -> void:
-	print(vec)
 	vec *= -1
 	if vec.x > 0:
 		_right_pressed = true
