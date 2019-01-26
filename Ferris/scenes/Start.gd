@@ -21,7 +21,7 @@ func _ready():
 	# The assets were designed for a resolution of 320x200 (MCGA) back in the days.
 	# Because they are just 16x16 pixels in size, we have to scale things up.
 	# The window resolution of the project is set to 320x200 but the window can be resized to any given dimensions.
-	# Setting the project settings to scale the viewport and keep aspect ratio right takes care of proper resizing.
+	# Setting the project settings to scale 2D (in section "Window") and keep aspect ratio right takes care of proper resizing.
 	# We set the initial window size to 640x480 to prevent the game window from being tiny.
 	OS.window_size = Vector2(640, 480)
 	
