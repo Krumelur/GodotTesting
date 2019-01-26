@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Godot_TouchScreen_Joysticks_JoyBG.png-dcf9703eb45382a30cca29578cc3b4de.stex"
+path="res://.import/Godot_TouchScreen_Joysticks_Joy.png-76340ba964bb1014dbc87999c777665b.stex"
 
 [deps]
 
-source_file="res://Utils/JoystickUI/Godot_TouchScreen_Joysticks_JoyBG.png"
-dest_files=[ "res://.import/Godot_TouchScreen_Joysticks_JoyBG.png-dcf9703eb45382a30cca29578cc3b4de.stex" ]
+source_file="res://scenes/JoystickUI/Godot_TouchScreen_Joysticks_Joy.png"
+dest_files=[ "res://.import/Godot_TouchScreen_Joysticks_Joy.png-76340ba964bb1014dbc87999c777665b.stex" ]
 
 [params]
 

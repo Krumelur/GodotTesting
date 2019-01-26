@@ -1,4 +1,7 @@
 extends Node2D
+
+const Hud = preload("res://scenes/HUD/HUD.gd")
+
 enum TILE_TYPES {
 	Wall = 0,
 	Kill = 1,
@@ -11,10 +14,22 @@ enum SPRITE_ID {
 	Player = 247
 }
 
-	
-# Create the player.
-onready var _player : Node2D  = $Player
+# The node that will be the parent of the current level's tile map.
+onready var _current_level_node : Node = $CurrentLevelNode
+
+# The tile map containing the current level's data.
 var _current_level_map : TileMap
+
+# The node representing the player in the current scene.
+onready var _player_node : Node2D  = $CurrentLevelNode/Player
+
+# The camera is attached to this node. Moving the node changes the part of the scene we're looking at.
+# The game logic will move this node along with the player.
+onready var _camera_follow_node : Node = $CurrentLevelNode/CameraFollowNode
+
+# Overlay containing input controls.
+onready var _hud_node : Node2D = $HUD
+
 
 func _ready():
 	# Note about the game's dimensions:
@@ -30,7 +45,7 @@ func _ready():
 	_current_level_map = resource.instance()
 	# Scale by a factor of 4...modern hardware has so much more resolution than back in the good old days of 320x200 :-)
 	#_current_level_map.scale = Vector2(1, 1)
-	add_child(_current_level_map)
+	_current_level_node.add_child(_current_level_map)
 	
 	# Every level map has got a child TileMap that defines the type of the tile used at a specific location (background, wall, kill, collectable, climbable)
 	var tile_type_map : TileMap = _current_level_map.get_child(0)
@@ -62,16 +77,32 @@ func _ready():
 			SPRITE_ID.Player:
 				print("Found player at %s" % used_cell)
 				_current_level_map.set_cellv(used_cell, -1)
-				setup_player(used_cell)
+				setup_player_node(used_cell)
 
 func _physics_process(delta: float) -> void:
-	#_player.move($Joystick.joystick_vector)
-	if $CameraFollowNode && $Player :
-		$CameraFollowNode.position = Vector2($Player.position.x - 150, 0)
+	#_player_node.move($Joystick.joystick_vector)
+	if _camera_follow_node && _player_node :
+		_camera_follow_node.position = Vector2(_player_node.position.x - 150, 0)
 		
 						
 # Places the player at a given level position. Adds player to the scene if not in it yet.
-func setup_player(tile_position : Vector2) -> void:
+func setup_player_node(tile_position : Vector2) -> void:
 	# Pivot point of sprite is the center. Adjust by half the width and height when inserting player.
-	_player.position = (tile_position * _current_level_map.cell_size) + _current_level_map.cell_size / 2
+	_player_node.position = (tile_position * _current_level_map.cell_size) + _current_level_map.cell_size / 2
+
+func _on_hud_direction_input(direction, is_pressed):
+	if !is_pressed:
+		_player_node.move(Vector2(0, 0))
+		return
+		
+	var move_dir = Vector2.ZERO
 	
+	if	direction == Hud.Direction.Jump:
+		_player_node.jump()
+	
+	if direction == Hud.Direction.Left:
+		move_dir.x = -1
+	elif direction == Hud.Direction.Right:
+		move_dir.x = +1
+		
+	_player_node.move(move_dir)

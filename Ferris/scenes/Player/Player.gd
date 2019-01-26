@@ -19,7 +19,6 @@ var _up_pressed = false
 var _down_pressed = false
 
 func move(vec : Vector2) -> void:
-	vec *= -1
 	if vec.x > 0:
 		_right_pressed = true
 		_left_pressed = false
@@ -37,12 +36,16 @@ func move(vec : Vector2) -> void:
 		_up_pressed = true
 		_down_pressed = false
 
-func _input(event : InputEvent) -> void:
+func jump() -> void:
 	if is_jumping:
 		return
+	is_jumping = true
+	vel.y = -jump_speed
+
+func _input(event : InputEvent) -> void:
+	# TODO: player should not handle input itself...touch controls call into move methods and jump method. Should be the same for keyboard input
 	if event.is_action_pressed("jump"):
-		is_jumping = true
-		vel.y = -jump_speed
+		jump()
 
 func _physics_process(delta : float):
 	if _left_pressed || Input.is_action_pressed("ui_left"):

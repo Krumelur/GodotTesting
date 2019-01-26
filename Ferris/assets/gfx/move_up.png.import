@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Godot_TouchScreen_Joysticks_Joy.png-7cd1205f3d725ad1cb35efa482995930.stex"
+path="res://.import/move_up.png-280f8a650079e24fb872ad1f481607fe.stex"
 
 [deps]
 
-source_file="res://Utils/JoystickUI/Godot_TouchScreen_Joysticks_Joy.png"
-dest_files=[ "res://.import/Godot_TouchScreen_Joysticks_Joy.png-7cd1205f3d725ad1cb35efa482995930.stex" ]
+source_file="res://assets/gfx/move_up.png"
+dest_files=[ "res://.import/move_up.png-280f8a650079e24fb872ad1f481607fe.stex" ]
 
 [params]
 
@@ -27,5 +27,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
