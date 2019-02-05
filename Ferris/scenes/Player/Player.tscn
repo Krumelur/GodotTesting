@@ -5,13 +5,14 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-extents = Vector2( 7.30887, 8.62334 )
+extents = Vector2( 4.71733, 7.38741 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 100, 100 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="IdleTimer" type="Timer" parent="."]

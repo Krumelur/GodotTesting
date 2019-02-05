@@ -11,7 +11,8 @@ enum TILE_TYPES {
 }
 
 enum SPRITE_ID {
-	Player = 247
+	Player = 247,
+	Worm = 291
 }
 
 # The node that will be the parent of the current level's tile map.
@@ -78,6 +79,10 @@ func _ready():
 				print("Found player at %s" % used_cell)
 				_current_level_map.set_cellv(used_cell, -1)
 				setup_player_node(used_cell)
+			SPRITE_ID.Worm:
+				print("Found worm at %s" % used_cell)
+				_current_level_map.set_cellv(used_cell, -1)
+				setup_enemy_worm(used_cell)
 
 func _physics_process(delta: float) -> void:
 	#_player_node.move($Joystick.joystick_vector)
@@ -89,6 +94,10 @@ func _physics_process(delta: float) -> void:
 func setup_player_node(tile_position : Vector2) -> void:
 	# Pivot point of sprite is the center. Adjust by half the width and height when inserting player.
 	_player_node.position = (tile_position * _current_level_map.cell_size) + _current_level_map.cell_size / 2
+
+func setup_enemy_worm(tile_position : Vector2) -> void:
+	
+	pass
 
 func _on_hud_direction_input(direction, is_pressed):
 	if !is_pressed:

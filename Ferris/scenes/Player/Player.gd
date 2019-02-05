@@ -39,6 +39,7 @@ func move(vec : Vector2) -> void:
 func jump() -> void:
 	if is_jumping:
 		return
+	
 	is_jumping = true
 	vel.y = -jump_speed
 
@@ -71,20 +72,20 @@ func _physics_process(delta : float):
 			$Sprite.stop()
 			$IdleTimer.start()
 
-		
-	#vel.y = clamp(vel.y, 0, max_fall_speed)
-	var remaining = move_and_slide(vel, Vector2(0, -1), true)
 	
-	if is_jumping && remaining.round().y == 0 :
+	var rem = move_and_slide(vel, Vector2(0, -1), true)
+	if is_jumping && _last_y_velocity < 0 && round(rem.y) == 0:
 		is_jumping = false
 		vel.y = 0
 	
-	if !is_on_floor():
-		vel.y += global.GRAVITY * delta
-	else:
+	if is_on_floor():
 		is_jumping = false
-	
-	
+	else:
+		vel.y += global.GRAVITY * delta
+		
+	_last_y_velocity = vel.y
+
+var _last_y_velocity : int = 0
 
 func _idle_timer_triggered():
 	$Sprite.animation = "idle"
